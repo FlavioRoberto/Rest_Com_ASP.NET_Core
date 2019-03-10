@@ -5,7 +5,10 @@ Api/.vs/Api/v15/Server/sqlite3/storage.ide
 Api/.vs/Api/v15/Server/sqlite3/storage.ide-shm
 Api/.vs/Api/v15/Server/sqlite3/storage.ide-wal
 Api/Api.sln
+Api/Api/bin/*
 Api/Api/obj/Debug/*
 Api/Api/obj/Api.csproj.nuget.cache
 Api/Api/obj/Api.csproj.nuget.g.props
 Api/Api/obj/Api.csproj.nuget.g.targets
+Api/Api/bin/Debug/netcoreapp2.1/Api.dll
+Api/Api/bin/Debug/netcoreapp2.1/Api.pdb
