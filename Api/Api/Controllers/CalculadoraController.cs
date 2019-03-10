@@ -80,7 +80,7 @@ namespace Api.Controllers
                     if (conversaoSegundoNumero.Resultado == 0)
                         return BadRequest("Não é possível dividir por 0!");
 
-                    return Ok("A multiplicação dos números informados é: " +
+                    return Ok("A divisão dos números informados é: " +
                         $"{conversaoPrimeiroNumero.Resultado / conversaoSegundoNumero.Resultado}");
 
                 default: return BadRequest("Operação não implementada!");
