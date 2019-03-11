@@ -4333,6 +4333,29 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Data.dll": {}
+        }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
+        }
       }
     }
   },
@@ -11783,13 +11806,25 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "Data/1.0.0": {
+      "type": "project",
+      "path": "../Dominio/Data.csproj",
+      "msbuildProject": "../Dominio/Data.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../Services/Services.csproj",
+      "msbuildProject": "../Services/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "Data >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "Services >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -11821,7 +11856,14 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Dominio\\Data.csproj": {
+              "projectPath": "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Dominio\\Data.csproj"
+            },
+            "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Services\\Services.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
