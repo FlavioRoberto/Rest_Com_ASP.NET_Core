@@ -570,6 +570,18 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.TagHelpers.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Mvc.Versioning/3.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "[2.2.0, 3.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Versioning.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Versioning.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Mvc.ViewFeatures/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3024,17 +3036,30 @@
           "bin/placeholder/Data.dll": {}
         }
       },
-      "Services/1.0.0": {
+      "Negocio/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Repositorio": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Negocio.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Negocio.dll": {}
+        }
+      },
+      "Repositorio/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "Data": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Services.dll": {}
+          "bin/placeholder/Repositorio.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Services.dll": {}
+          "bin/placeholder/Repositorio.dll": {}
         }
       }
     }
@@ -3535,6 +3560,21 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.TagHelpers.xml",
         "microsoft.aspnetcore.mvc.taghelpers.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.mvc.taghelpers.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.Versioning/3.1.2": {
+      "sha512": "XcPWILCgNXwQoCAaEZGByQc5aDbZv/CSAH4e85+c8Pd11tNOFY+na8vPP/97UT2S9fkAS2UPi28Ut2mv3DeL7w==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.versioning/3.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Versioning.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Versioning.pdb",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Versioning.xml",
+        "microsoft.aspnetcore.mvc.versioning.3.1.2.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.versioning.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Mvc.ViewFeatures/2.2.0": {
@@ -8818,10 +8858,15 @@
       "path": "../Dominio/Data.csproj",
       "msbuildProject": "../Dominio/Data.csproj"
     },
-    "Services/1.0.0": {
+    "Negocio/1.0.0": {
       "type": "project",
-      "path": "../Services/Services.csproj",
-      "msbuildProject": "../Services/Services.csproj"
+      "path": "../Services/Negocio.csproj",
+      "msbuildProject": "../Services/Negocio.csproj"
+    },
+    "Repositorio/1.0.0": {
+      "type": "project",
+      "path": "../Repositorio/Repositorio.csproj",
+      "msbuildProject": "../Repositorio/Repositorio.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -8829,9 +8874,10 @@
       "Data >= 1.0.0",
       "Microsoft.AspNetCore >= 2.2.0",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
+      "Microsoft.AspNetCore.Mvc.Versioning >= 3.1.2",
       "Microsoft.Extensions.DependencyInjection >= 2.2.0",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Services >= 1.0.0"
+      "Negocio >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -8867,8 +8913,8 @@
             "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Dominio\\Data.csproj": {
               "projectPath": "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Dominio\\Data.csproj"
             },
-            "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Services\\Services.csproj": {
-              "projectPath": "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Services\\Services.csproj"
+            "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Services\\Negocio.csproj": {
+              "projectPath": "C:\\Users\\flavi\\Documents\\Desenvolvimento\\Rest_Com_ASP.NET_Core\\Api\\Services\\Negocio.csproj"
             }
           }
         }
@@ -8889,6 +8935,10 @@
           "Microsoft.AspNetCore.Mvc": {
             "target": "Package",
             "version": "[2.2.0, )"
+          },
+          "Microsoft.AspNetCore.Mvc.Versioning": {
+            "target": "Package",
+            "version": "[3.1.2, )"
           },
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",

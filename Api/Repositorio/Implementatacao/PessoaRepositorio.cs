@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Data.Contexto;
 using Data.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace Services.Implementation
+namespace Repositorio.Implementatacao
 {
-    public class PessoaService : IPessoaService
+    public class PessoaRepositorio : IPessoaRepositorio
     {
         private MySqlContext _contexto;
 
-        public PessoaService(MySqlContext contexto)
+        public PessoaRepositorio(MySqlContext contexto)
         {
             this._contexto = contexto;
         }
 
-        public async Task<Pessoa> Atualizar(Pessoa pessoa)
+        public async Task<Data.Model.Pessoa> Atualizar(Pessoa pessoa)
         {
             try
             {
@@ -31,7 +30,7 @@ namespace Services.Implementation
             }
         }
 
-        public async Task<Pessoa> Criar(Pessoa pessoa)
+        public async Task<Data.Model.Pessoa> Criar(Data.Model.Pessoa pessoa)
         {
             try
             {
@@ -46,7 +45,7 @@ namespace Services.Implementation
             return pessoa;
         }
 
-        public async Task<Pessoa> ListarPeloId(long id)
+        public async Task<Data.Model.Pessoa> ListarPeloId(long id)
         {
             try
             {
@@ -60,7 +59,7 @@ namespace Services.Implementation
 
         }
 
-        public async Task<List<Pessoa>> ListarTodos()
+        public async Task<List<Data.Model.Pessoa>> ListarTodos()
         {
             try
             {

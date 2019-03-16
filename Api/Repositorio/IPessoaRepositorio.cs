@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Services
+namespace Repositorio
 {
-    public interface IPessoaService
+    public interface IPessoaRepositorio
     {
         Task<Pessoa> Criar(Pessoa pessoa);
         Task<Pessoa> ListarPeloId(long id);

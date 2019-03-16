@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Services;
-using Services.Implementation;
+using Repositorio;
+using Repositorio.Implementatacao;
 
 namespace Api
 {
@@ -29,8 +29,10 @@ namespace Api
 
             services.AddMvc();
 
+            services.AddApiVersioning();
+
             //Injeção de dependencias do serviço para pessoa
-            services.AddScoped<IPessoaService, PessoaService>();
+            services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

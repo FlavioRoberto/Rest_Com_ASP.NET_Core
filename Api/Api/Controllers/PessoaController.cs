@@ -1,19 +1,22 @@
 ﻿using Data.Model;
 using Microsoft.AspNetCore.Mvc;
-using Services;
+using Negocio;
+using Negocio.Implementacao;
+using Repositorio;
 using System;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
     public class PessoaController : ControllerBase
     {
-        private IPessoaService _pessoaService;
+        private IPessoaNegocio _pessoaNegocio;
 
-        public PessoaController(IPessoaService pessoaService)
+        public PessoaController(IPessoaRepositorio pessoaRepositorio)
         {
-            _pessoaService = pessoaService;
+            _pessoaNegocio = new PessoaNegocio(pessoaRepositorio);
         }
 
 
@@ -21,7 +24,7 @@ namespace Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> ListarPorID(long id)
         {
-            var pessoa = await _pessoaService.ListarPeloId(id);
+            var pessoa = await _pessoaNegocio.ListarPeloId(id);
 
             if (pessoa == null)
                 return NoContent();
@@ -32,7 +35,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var listaPessoas = await _pessoaService.ListarTodos();
+            var listaPessoas = await _pessoaNegocio.ListarTodos();
 
             if (listaPessoas.Count <= 0)
                 return NoContent();
@@ -48,7 +51,7 @@ namespace Api.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest("O modelo não é válido!");
 
-                var resultado = await _pessoaService.Criar(pessoa);
+                var resultado = await _pessoaNegocio.Criar(pessoa);
 
                 if (resultado == null)
                     return BadRequest("Não foi possível criar uma nova pessoa!");
@@ -67,13 +70,13 @@ namespace Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest("O modelo não é válido!");
 
-            return Ok(await _pessoaService.Atualizar(pessoa));
+            return Ok(await _pessoaNegocio.Atualizar(pessoa));
         }
 
         [HttpDelete]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
-            return Ok(await _pessoaService.Remover(id));
+            return Ok(await _pessoaNegocio.Remover(id));
         }
 
 
