@@ -1,31 +1,38 @@
 ﻿using Data.Contexto;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Repositorio;
 using Repositorio.Implementatacao;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger _logger;
+        private IConfiguration _configuration { get; }
+        public IHostingEnvironment environment { get; }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            this.environment = environment;
+            _logger = logger;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration["MySqlConnections:ConexaoLocal"];
+            var connectionString = _configuration["MySqlConnections:ConexaoLocal"];
 
             services.AddDbContext<MySqlContext>(options => {
-                options.UseMySql(connection);
+                options.UseMySQL(connectionString);
             });
+                     
 
             services.AddMvc();
 
