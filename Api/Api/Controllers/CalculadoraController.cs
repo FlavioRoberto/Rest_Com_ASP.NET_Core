@@ -1,6 +1,5 @@
 ﻿using Api.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace Api.Controllers

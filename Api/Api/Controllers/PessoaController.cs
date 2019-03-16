@@ -1,6 +1,7 @@
 ﻿using Data.Model;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -17,9 +18,10 @@ namespace Api.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> ListarPorID([FromQuery] long id)
+        [Route("{id}")]
+        public async Task<IActionResult> ListarPorID(long id)
         {
-            var pessoa = _pessoaService.ListarPeloId(id);
+            var pessoa = await _pessoaService.ListarPeloId(id);
 
             if (pessoa == null)
                 return NoContent();
@@ -30,7 +32,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var listaPessoas = _pessoaService.ListarTodos();
+            var listaPessoas = await _pessoaService.ListarTodos();
 
             if (listaPessoas.Count <= 0)
                 return NoContent();
@@ -39,27 +41,39 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar(Pessoa pessoa)
+        public async Task<IActionResult> Criar([FromBody] Pessoa pessoa)
         {
-            if (!ModelState.IsValid)
-                return BadRequest("O modelo não é válido!");
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest("O modelo não é válido!");
 
-            return Ok(_pessoaService.Criar(pessoa));
+                var resultado = await _pessoaService.Criar(pessoa);
+
+                if (resultado == null)
+                    return BadRequest("Não foi possível criar uma nova pessoa!");
+
+                return Ok(pessoa);
+
+            }catch(Exception e)
+            {
+                return BadRequest($"Não foi possível criar uma nova pessoa: {e.InnerException.Message}");
+            }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Atualizar(Pessoa pessoa)
+        public async Task<IActionResult> Atualizar([FromBody] Pessoa pessoa)
         {
             if (!ModelState.IsValid)
                 return BadRequest("O modelo não é válido!");
 
-            return Ok(_pessoaService.Atualizar(pessoa));
+            return Ok(await _pessoaService.Atualizar(pessoa));
         }
 
         [HttpDelete]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
-            return Ok(_pessoaService.Remover(id));
+            return Ok(await _pessoaService.Remover(id));
         }
 
 

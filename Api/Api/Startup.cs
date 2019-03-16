@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Data.Contexto;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
@@ -20,7 +21,13 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            var connection = Configuration["MySqlConnections:ConexaoLocal"];
+
+            services.AddDbContext<MySqlContext>(options => {
+                options.UseMySql(connection);
+            });
+
+            services.AddMvc();
 
             //Injeção de dependencias do serviço para pessoa
             services.AddScoped<IPessoaService, PessoaService>();
@@ -33,12 +40,7 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
+           
             app.UseMvc();
         }
     }
