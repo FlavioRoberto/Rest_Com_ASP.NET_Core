@@ -7,6 +7,7 @@ using Repositorio;
 using Repositorio.Implementatacao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Data.Model;
 
 namespace Api
 {
@@ -39,10 +40,10 @@ namespace Api
             services.AddApiVersioning();
 
             //Injeção de dependencias do serviço para pessoa
-            services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
+            services.AddScoped<IEntidade<Pessoa>, PessoaRepositorio>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use sthis method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

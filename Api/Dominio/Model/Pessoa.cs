@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Data.Model
+﻿namespace Data.Model
 {
     public class Pessoa
     {

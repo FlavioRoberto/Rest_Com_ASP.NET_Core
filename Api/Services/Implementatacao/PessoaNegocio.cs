@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Data.Model;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +11,9 @@ namespace Negocio.Implementacao
 {
     public class PessoaNegocio : IPessoaNegocio
     {
-        private IPessoaRepositorio _repositorio;
+        private IEntidade<Pessoa> _repositorio;
 
-        public PessoaNegocio(IPessoaRepositorio repositorio)
+        public PessoaNegocio(IEntidade<Pessoa> repositorio)
         {
             this._repositorio = repositorio;
         }
@@ -20,7 +22,7 @@ namespace Negocio.Implementacao
         {
             try
             {
-                return await _repositorio.Atualizar(pessoa);
+                return await _repositorio.Atualizar(pessoa, lnq => lnq.Id == pessoa.Id, "Não existe a pessoa informada!");
             }
             catch (Exception e)
             {
@@ -41,11 +43,11 @@ namespace Negocio.Implementacao
 
         }
 
-        public async Task<Pessoa> ListarPeloId(long id)
+        public async Task<Pessoa> ListarPeloId(Expression<Func<Pessoa, bool>> query)
         {
             try
             {
-                return await _repositorio.ListarPeloId(id);
+                return await _repositorio.ListarPeloId(query);
             }
             catch (Exception e)
             {
@@ -66,11 +68,11 @@ namespace Negocio.Implementacao
             }
         }
 
-        public async Task<bool> Remover(long id)
+        public async Task<bool> Remover(Expression<Func<Pessoa, bool>> query)
         {
             try
             {
-               return await _repositorio.Remover(id);
+                return await _repositorio.Remover(query);
             }
             catch (Exception e)
             {

@@ -14,7 +14,7 @@ namespace Api.Controllers
     {
         private IPessoaNegocio _pessoaNegocio;
 
-        public PessoaController(IPessoaRepositorio pessoaRepositorio)
+        public PessoaController(IEntidade<Pessoa> pessoaRepositorio)
         {
             _pessoaNegocio = new PessoaNegocio(pessoaRepositorio);
         }
@@ -24,7 +24,7 @@ namespace Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> ListarPorID(long id)
         {
-            var pessoa = await _pessoaNegocio.ListarPeloId(id);
+            var pessoa = await _pessoaNegocio.ListarPeloId(lnq=>lnq.Id == id);
 
             if (pessoa == null)
                 return NoContent();
@@ -67,16 +67,22 @@ namespace Api.Controllers
         [HttpPut]
         public async Task<IActionResult> Atualizar([FromBody] Pessoa pessoa)
         {
-            if (!ModelState.IsValid)
-                return BadRequest("O modelo não é válido!");
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest("O modelo não é válido!");
 
-            return Ok(await _pessoaNegocio.Atualizar(pessoa));
+                return Ok(await _pessoaNegocio.Atualizar(pessoa));
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpDelete]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
-            return Ok(await _pessoaNegocio.Remover(id));
+            return Ok(await _pessoaNegocio.Remover(lnq=> lnq.Id == id));
         }
 
 
