@@ -40,7 +40,8 @@ namespace Api
             services.AddApiVersioning();
 
             //Injeção de dependencias do serviço para pessoa
-            services.AddScoped<IEntidade<Pessoa>, PessoaRepositorio>();
+            services.AddScoped<IRepositorio<Pessoa>, PessoaRepositorio>();
+            services.AddScoped<IRepositorio<Livro>, LivroRepositorio>();
         }
 
         // This method gets called by the runtime. Use sthis method to configure the HTTP request pipeline.

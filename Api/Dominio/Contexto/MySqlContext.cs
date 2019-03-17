@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Contexto
 {
-    public class MySqlContext : DbContext
+    public class MySqlContext : DbContext , IContexto
     {
         public MySqlContext()
         {

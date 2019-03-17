@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
 using Data.Model;
-using Microsoft.EntityFrameworkCore;
+using Negocio.Contratos;
 using Repositorio;
 
 namespace Negocio.Implementacao
 {
     public class PessoaNegocio : IPessoaNegocio
     {
-        private IEntidade<Pessoa> _repositorio;
+        private IRepositorio<Pessoa> _repositorio;
 
-        public PessoaNegocio(IEntidade<Pessoa> repositorio)
+        public PessoaNegocio(IRepositorio<Pessoa> repositorio)
         {
             this._repositorio = repositorio;
         }
@@ -22,7 +20,11 @@ namespace Negocio.Implementacao
         {
             try
             {
-                return await _repositorio.Atualizar(pessoa, lnq => lnq.Id == pessoa.Id, "Não existe a pessoa informada!");
+                bool existeEntidade = await _repositorio.ListarPeloId(lnq => lnq.Id == pessoa.Id) != null;
+                if (!existeEntidade)
+                    throw new Exception("Não foi encontrada a pessoa informada");
+
+                return await _repositorio.Atualizar(pessoa);
             }
             catch (Exception e)
             {
@@ -43,11 +45,11 @@ namespace Negocio.Implementacao
 
         }
 
-        public async Task<Pessoa> ListarPeloId(Expression<Func<Pessoa, bool>> query)
+        public async Task<Pessoa> ListarPeloId(long id)
         {
             try
             {
-                return await _repositorio.ListarPeloId(query);
+                return await _repositorio.ListarPeloId(lnq => lnq.Id == id);
             }
             catch (Exception e)
             {
@@ -68,11 +70,11 @@ namespace Negocio.Implementacao
             }
         }
 
-        public async Task<bool> Remover(Expression<Func<Pessoa, bool>> query)
+        public async Task<bool> Remover(long id)
         {
             try
             {
-                return await _repositorio.Remover(query);
+                return await _repositorio.Remover(lnq => lnq.Id == id);
             }
             catch (Exception e)
             {

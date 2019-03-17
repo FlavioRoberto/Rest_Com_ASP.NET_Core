@@ -10,26 +10,22 @@ using System.Threading.Tasks;
 
 namespace Repositorio.Implementatacao
 {
-    public abstract class RepositorioBase<T> : IEntidade<T> where T : class
+    public abstract class RepositorioBase<T> : IRepositorio<T> where T : class
     {
         private DbSet<T> _dbSet;
-        protected MySqlContext _contexto { get; private set; }
+        protected IContexto _contexto { get; private set; }
         protected abstract DbSet<T> GetDbSet();
 
-        public RepositorioBase(MySqlContext contexto)
+        public RepositorioBase(IContexto contexto)
         {
             _contexto = contexto;
             _dbSet = GetDbSet();
         }
 
-        public async Task<T> Atualizar(T entidade, Expression<Func<T, bool>> query, string mensagemNaoExisteEntidade)
+        public async Task<T> Atualizar(T entidade)
         {
             try
             {
-                bool existeEntidade = await ExisteEntidadeNoBanco(query);
-                if (!existeEntidade)
-                    throw new Exception(mensagemNaoExisteEntidade);
-
                 _dbSet.Update(entidade);
                 await _contexto.SaveChangesAsync();
                 return entidade;
@@ -64,7 +60,7 @@ namespace Repositorio.Implementatacao
         {
             try
             {
-                return await _dbSet.FirstOrDefaultAsync(query);
+                return await _dbSet.AsNoTracking().FirstOrDefaultAsync(query);
             }
             catch (Exception e)
             {
@@ -77,7 +73,7 @@ namespace Repositorio.Implementatacao
         {
             try
             {
-                return await _dbSet.ToListAsync();
+                return await _dbSet.AsNoTracking().ToListAsync();
             }
             catch (Exception e)
             {

@@ -6,16 +6,13 @@ namespace Repositorio.Implementatacao
 {
     public class LivroRepositorio : RepositorioBase<Livro>
     {
-        private MySqlContext contexto;
-
         public LivroRepositorio(MySqlContext contexto) : base( contexto)
         {
-            this.contexto = contexto;
         }
 
         protected override DbSet<Livro> GetDbSet()
         {
-            return contexto.Livro;
+            return _contexto.Livro;
         }
     }
 }

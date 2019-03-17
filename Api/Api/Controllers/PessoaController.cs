@@ -1,6 +1,6 @@
 ﻿using Data.Model;
 using Microsoft.AspNetCore.Mvc;
-using Negocio;
+using Negocio.Contratos;
 using Negocio.Implementacao;
 using Repositorio;
 using System;
@@ -14,7 +14,7 @@ namespace Api.Controllers
     {
         private IPessoaNegocio _pessoaNegocio;
 
-        public PessoaController(IEntidade<Pessoa> pessoaRepositorio)
+        public PessoaController(IRepositorio<Pessoa> pessoaRepositorio)
         {
             _pessoaNegocio = new PessoaNegocio(pessoaRepositorio);
         }
@@ -24,7 +24,7 @@ namespace Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> ListarPorID(long id)
         {
-            var pessoa = await _pessoaNegocio.ListarPeloId(lnq=>lnq.Id == id);
+            var pessoa = await _pessoaNegocio.ListarPeloId(id);
 
             if (pessoa == null)
                 return NoContent();
@@ -82,7 +82,7 @@ namespace Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
-            return Ok(await _pessoaNegocio.Remover(lnq=> lnq.Id == id));
+            return Ok(await _pessoaNegocio.Remover(id));
         }
 
 

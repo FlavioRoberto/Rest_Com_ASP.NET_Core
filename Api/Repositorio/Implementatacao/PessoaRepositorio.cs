@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Data.Contexto;
+﻿using Data.Contexto;
 using Data.Model;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +8,7 @@ namespace Repositorio.Implementatacao
     {
 
         public PessoaRepositorio( MySqlContext contexto) : base(contexto)
-        {
-        
+        {       
         }
 
         protected override DbSet<Pessoa> GetDbSet()
