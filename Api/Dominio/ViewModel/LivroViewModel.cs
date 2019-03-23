@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Dominio.Model
+namespace Dominio.ViewModel
 {
-    public class Livro
+    public class LivroViewModel
     {
         public long Id { get; set; }
         public string Titulo { get; set; }

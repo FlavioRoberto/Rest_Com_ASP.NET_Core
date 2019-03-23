@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Data.Model;
+using Dominio.Conversor;
+using Dominio.Model;
+using Dominio.ViewModel;
 using Negocio.Contratos;
 using Repositorio;
 
@@ -9,18 +11,22 @@ namespace Negocio.Implementatacao
 {
     public class LivroNegocio : ILivroNegocio
     {
+        private readonly LivroConversor conversor;
         private IRepositorio<Livro> _repositorio;
 
         public LivroNegocio(IRepositorio<Livro> repositorio)
         {
             _repositorio = repositorio;
+            conversor = new LivroConversor();
         }
 
-        public Task<Livro> Atualizar(Livro livro)
+        public LivroViewModel Atualizar(LivroViewModel livro)
         {
             try
             {
-                return _repositorio.Atualizar(livro);
+                var pessoa = conversor.Parse(livro);
+                var resultado = _repositorio.Atualizar(pessoa).Result;
+                return  conversor.Parse(resultado);
             }
             catch (Exception e)
             {
@@ -28,11 +34,13 @@ namespace Negocio.Implementatacao
             }
         }
 
-        public Task<Livro> Criar(Livro livro)
+        public LivroViewModel Criar(LivroViewModel livro)
         {
             try
             {
-                return _repositorio.Criar(livro);
+                var entidade = conversor.Parse(livro);
+                var result =  _repositorio.Criar(entidade).Result;
+                return conversor.Parse(result);
             }
             catch (Exception e)
             {
@@ -40,11 +48,12 @@ namespace Negocio.Implementatacao
             }
         }
 
-        public Task<Livro> ListarPeloId(long id)
+        public LivroViewModel ListarPeloId(long id)
         {
             try
             {
-                return _repositorio.ListarPeloId(lnq => lnq.Id == id);
+                var resultado = _repositorio.ListarPeloId(lnq => lnq.Id == id).Result;
+                return conversor.Parse(resultado);
             }
             catch (Exception e)
             {
@@ -52,11 +61,11 @@ namespace Negocio.Implementatacao
             }
         }
 
-        public Task<List<Livro>> ListarTodos()
+        public List<LivroViewModel> ListarTodos()
         {
             try
             {
-                return _repositorio.ListarTodos();
+                return conversor.ParseList(_repositorio.ListarTodos().Result);
             }
             catch (Exception e)
             {
@@ -64,16 +73,18 @@ namespace Negocio.Implementatacao
             }
         }
 
-        public Task<bool> Remover(long id)
+        public bool Remover(long id)
         {
             try
             {
-                return _repositorio.Remover(lnq => lnq.Id == id);
+                return _repositorio.Remover(lnq => lnq.Id == id).Result;
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
+
+       
     }
 }

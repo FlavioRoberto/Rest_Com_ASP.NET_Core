@@ -1,9 +1,10 @@
-﻿using Data.Model;
+﻿using Dominio.Model;
+using Dominio.ViewModel;
 
 namespace Negocio.Contratos
 
 {
-    public interface IPessoaNegocio : IEntidadeNegocio<Pessoa>
+    public interface IPessoaNegocio : IEntidadeNegocio<PessoaViewModel>
     {
     }
 }

@@ -1,4 +1,5 @@
-﻿using Data.Model;
+﻿using Dominio.Model;
+using Dominio.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Negocio.Contratos;
 using Negocio.Implementatacao;
@@ -23,7 +24,7 @@ namespace Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> ListarPorID(long id)
         {
-            var livro = await _negocio.ListarPeloId(id);
+            var livro =  _negocio.ListarPeloId(id);
 
             if (livro == null)
                 return NoContent();
@@ -34,7 +35,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var livros = await _negocio.ListarTodos();
+            var livros =  _negocio.ListarTodos();
 
             if (livros.Count <= 0)
                 return NoContent();
@@ -43,14 +44,14 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar([FromBody] Livro livro)
+        public async Task<IActionResult> Criar([FromBody] LivroViewModel livro)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("O modelo não é válido!");
 
-                var resultado = await _negocio.Criar(livro);
+                var resultado =  _negocio.Criar(livro);
 
                 if (resultado == null)
                     return BadRequest("Não foi possível criar uma novo livro!");
@@ -65,14 +66,14 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] Livro livro)
+        public async Task<IActionResult> Atualizar([FromBody] LivroViewModel livro)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("O modelo não é válido!");
 
-                return Ok(await _negocio.Atualizar(livro));
+                return Ok(_negocio.Atualizar(livro));
             }
             catch (Exception e)
             {
@@ -83,7 +84,7 @@ namespace Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
-            return Ok(await _negocio.Remover(id));
+            return Ok( _negocio.Remover(id));
         }
 
 

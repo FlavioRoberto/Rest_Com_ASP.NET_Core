@@ -1,4 +1,4 @@
-﻿using Data.Model;
+﻿using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

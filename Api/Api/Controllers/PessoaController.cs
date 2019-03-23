@@ -1,4 +1,5 @@
-﻿using Data.Model;
+﻿using Dominio.Model;
+using Dominio.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Negocio.Contratos;
 using Negocio.Implementacao;
@@ -24,7 +25,7 @@ namespace Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> ListarPorID(long id)
         {
-            var pessoa = await _pessoaNegocio.ListarPeloId(id);
+            var pessoa =  _pessoaNegocio.ListarPeloId(id);
 
             if (pessoa == null)
                 return NoContent();
@@ -35,7 +36,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> ListarTodos()
         {
-            var listaPessoas = await _pessoaNegocio.ListarTodos();
+            var listaPessoas =  _pessoaNegocio.ListarTodos();
 
             if (listaPessoas.Count <= 0)
                 return NoContent();
@@ -44,14 +45,14 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Criar([FromBody] Pessoa pessoa)
+        public async Task<IActionResult> Criar([FromBody] PessoaViewModel pessoa)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("O modelo não é válido!");
 
-                var resultado = await _pessoaNegocio.Criar(pessoa);
+                var resultado =  _pessoaNegocio.Criar(pessoa);
 
                 if (resultado == null)
                     return BadRequest("Não foi possível criar uma nova pessoa!");
@@ -65,14 +66,14 @@ namespace Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Atualizar([FromBody] Pessoa pessoa)
+        public async Task<IActionResult> Atualizar([FromBody] PessoaViewModel pessoa)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("O modelo não é válido!");
 
-                return Ok(await _pessoaNegocio.Atualizar(pessoa));
+                return Ok( _pessoaNegocio.Atualizar(pessoa));
             }catch(Exception e)
             {
                 return BadRequest(e.Message);
@@ -82,7 +83,7 @@ namespace Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
-            return Ok(await _pessoaNegocio.Remover(id));
+            return Ok( _pessoaNegocio.Remover(id));
         }
 
 

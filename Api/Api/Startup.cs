@@ -7,7 +7,7 @@ using Repositorio;
 using Repositorio.Implementatacao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Data.Model;
+using Dominio.Model;
 
 namespace Api
 {

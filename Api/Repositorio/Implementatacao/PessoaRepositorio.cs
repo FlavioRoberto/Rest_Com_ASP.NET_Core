@@ -1,5 +1,5 @@
 ﻿using Data.Contexto;
-using Data.Model;
+using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositorio.Implementatacao

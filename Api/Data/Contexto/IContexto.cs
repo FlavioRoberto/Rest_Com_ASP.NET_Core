@@ -1,4 +1,4 @@
-﻿using Data.Model;
+﻿using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;

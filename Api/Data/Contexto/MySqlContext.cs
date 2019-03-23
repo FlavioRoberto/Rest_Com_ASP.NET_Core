@@ -1,5 +1,5 @@
 ﻿using Data.Mapeamento;
-using Data.Model;
+using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Contexto

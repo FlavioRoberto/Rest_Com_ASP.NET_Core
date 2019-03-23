@@ -6,11 +6,11 @@ namespace Negocio.Contratos
     public interface IEntidadeNegocio<T> where T : class
     {
 
-        Task<T> Criar(T entidade);
-        Task<T> ListarPeloId(long id);
-        Task<List<T>> ListarTodos();
-        Task<T> Atualizar(T entidade);
-        Task<bool> Remover(long id);
+        T Criar(T entidade);
+        T ListarPeloId(long id);
+        List<T> ListarTodos();
+        T Atualizar(T entidade);
+        bool Remover(long id);
 
     }
 }

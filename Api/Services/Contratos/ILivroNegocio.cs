@@ -1,8 +1,9 @@
-﻿using Data.Model;
+﻿using Dominio.Model;
+using Dominio.ViewModel;
 
 namespace Negocio.Contratos
 {
-    public interface ILivroNegocio : IEntidadeNegocio<Livro>
+    public interface ILivroNegocio : IEntidadeNegocio<LivroViewModel>
     {
     }
 }

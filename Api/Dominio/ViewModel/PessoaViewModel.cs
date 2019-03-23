@@ -1,6 +1,6 @@
-﻿namespace Dominio.Model
+﻿namespace Dominio.ViewModel
 {
-    public class Pessoa
+    public class PessoaViewModel
     {
         public long? Id { get; set; }
 

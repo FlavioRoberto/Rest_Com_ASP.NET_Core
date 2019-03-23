@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Data.Model;
+using Dominio.Conversor;
+using Dominio.Model;
+using Dominio.ViewModel;
 using Negocio.Contratos;
 using Repositorio;
 
@@ -10,21 +11,26 @@ namespace Negocio.Implementacao
     public class PessoaNegocio : IPessoaNegocio
     {
         private IRepositorio<Pessoa> _repositorio;
+        private readonly PessoaConversor conversor;
 
         public PessoaNegocio(IRepositorio<Pessoa> repositorio)
         {
             this._repositorio = repositorio;
+            conversor = new PessoaConversor();
         }
 
-        public async Task<Pessoa> Atualizar(Pessoa pessoa)
+        public PessoaViewModel Atualizar(PessoaViewModel pessoa)
         {
             try
             {
-                bool existeEntidade = await _repositorio.ListarPeloId(lnq => lnq.Id == pessoa.Id) != null;
+                var resultado = _repositorio.ListarPeloId(lnq => lnq.Id == pessoa.Id).Result;
+                bool existeEntidade = resultado != null;
                 if (!existeEntidade)
                     throw new Exception("Não foi encontrada a pessoa informada");
 
-                return await _repositorio.Atualizar(pessoa);
+                var entidade = conversor.Parse(pessoa);
+                var resultadoAtualizacao = _repositorio.Atualizar(entidade).Result;
+                return conversor.Parse(resultadoAtualizacao);
             }
             catch (Exception e)
             {
@@ -32,24 +38,13 @@ namespace Negocio.Implementacao
             }
         }
 
-        public async Task<Pessoa> Criar(Pessoa pessoa)
+        public PessoaViewModel Criar(PessoaViewModel pessoa)
         {
             try
             {
-                return await _repositorio.Criar(pessoa);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-
-        }
-
-        public async Task<Pessoa> ListarPeloId(long id)
-        {
-            try
-            {
-                return await _repositorio.ListarPeloId(lnq => lnq.Id == id);
+                var entidade = conversor.Parse(pessoa);
+                var resultado = _repositorio.Criar(entidade).Result;
+                return conversor.Parse(resultado);
             }
             catch (Exception e)
             {
@@ -58,11 +53,24 @@ namespace Negocio.Implementacao
 
         }
 
-        public async Task<List<Pessoa>> ListarTodos()
+        public PessoaViewModel ListarPeloId(long id)
         {
             try
             {
-                return await _repositorio.ListarTodos();
+                return conversor.Parse(_repositorio.ListarPeloId(lnq => lnq.Id == id).Result);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        public List<PessoaViewModel> ListarTodos()
+        {
+            try
+            {
+                return conversor.ParseList(_repositorio.ListarTodos().Result);
             }
             catch (Exception e)
             {
@@ -70,11 +78,11 @@ namespace Negocio.Implementacao
             }
         }
 
-        public async Task<bool> Remover(long id)
+        public bool Remover(long id)
         {
             try
             {
-                return await _repositorio.Remover(lnq => lnq.Id == id);
+                return _repositorio.Remover(lnq => lnq.Id == id).Result;
             }
             catch (Exception e)
             {
