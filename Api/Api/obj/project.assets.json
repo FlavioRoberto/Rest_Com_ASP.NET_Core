@@ -503,6 +503,18 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Json.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Mvc.Formatters.Xml/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Xml.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Xml.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Mvc.Localization/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3591,6 +3603,19 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Json.xml",
         "microsoft.aspnetcore.mvc.formatters.json.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.mvc.formatters.json.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.Formatters.Xml/2.2.0": {
+      "sha512": "4pUhKtqhaNqSeMRRyEw1kGjg/pNLczzd4VAsanMGI539sCdkl1JBaoFojZb1helVdUvX9a1Jo+lYXq0lnwB/GQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.formatters.xml/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Xml.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Formatters.Xml.xml",
+        "microsoft.aspnetcore.mvc.formatters.xml.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.formatters.xml.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Mvc.Localization/2.2.0": {
@@ -9100,6 +9125,7 @@
     ".NETCoreApp,Version=v2.2": [
       "Microsoft.AspNetCore >= 2.2.0",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
+      "Microsoft.AspNetCore.Mvc.Formatters.Xml >= 2.2.0",
       "Microsoft.AspNetCore.Mvc.Versioning >= 3.1.2",
       "Microsoft.EntityFrameworkCore >= 2.2.3",
       "Microsoft.EntityFrameworkCore.Design >= 2.2.3",
@@ -9161,6 +9187,10 @@
             "version": "[2.2.0, )"
           },
           "Microsoft.AspNetCore.Mvc": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
+          "Microsoft.AspNetCore.Mvc.Formatters.Xml": {
             "target": "Package",
             "version": "[2.2.0, )"
           },

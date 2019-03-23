@@ -8,6 +8,7 @@ using Repositorio.Implementatacao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Dominio.Model;
+using Microsoft.Net.Http.Headers;
 
 namespace Api
 {
@@ -34,8 +35,11 @@ namespace Api
                 options.UseMySQL(connectionString);
             });
                      
-
-            services.AddMvc();
+            services.AddMvc(options=> {
+                options.RespectBrowserAcceptHeader = true;    
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            }).AddXmlSerializerFormatters();
 
             services.AddApiVersioning();
 
