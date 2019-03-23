@@ -1,11 +1,9 @@
-﻿using Dominio.Model;
-using Dominio.ViewModel;
-using System;
+﻿using Dominio.Core.ViewModel;
+using Dominio.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Dominio.Conversor
+namespace Dominio.Core.Conversor
 {
     public class PessoaConversor : IParse<PessoaViewModel, Pessoa>, IParse<Pessoa, PessoaViewModel>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Dominio.ViewModel
+namespace Dominio.Core.ViewModel
 {
     [DataContract]
     public class LivroViewModel

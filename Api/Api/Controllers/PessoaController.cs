@@ -1,11 +1,12 @@
 ﻿using Dominio.Model;
-using Dominio.ViewModel;
+using Dominio.Core.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Negocio.Contratos;
 using Negocio.Implementacao;
 using Repositorio;
 using System;
 using System.Threading.Tasks;
+using Tapioca.HATEOAS;
 
 namespace Api.Controllers
 {
@@ -23,6 +24,7 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> ListarPorID(long id)
         {
             var pessoa =  _pessoaNegocio.ListarPeloId(id);
@@ -34,6 +36,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> ListarTodos()
         {
             var listaPessoas =  _pessoaNegocio.ListarTodos();
@@ -45,6 +48,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Criar([FromBody] PessoaViewModel pessoa)
         {
             try
@@ -66,6 +70,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Atualizar([FromBody] PessoaViewModel pessoa)
         {
             try
@@ -81,6 +86,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
             return Ok( _pessoaNegocio.Remover(id));

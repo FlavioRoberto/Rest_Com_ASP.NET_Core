@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Dominio.Model;
 using Microsoft.Net.Http.Headers;
+using Tapioca.HATEOAS;
+using Dominio.Core.Hypermedia;
 
 namespace Api
 {
@@ -35,13 +37,13 @@ namespace Api
                 options.UseMySQL(connectionString);
             });
                      
-            services.AddMvc(options=> {
-                options.RespectBrowserAcceptHeader = true;    
-                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
-                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
-            }).AddXmlSerializerFormatters();
+            services.AddMvc();
 
             services.AddApiVersioning();
+
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ObjectContentResponseEnricherList.Add(new PessoaEnricher());
+            services.AddSingleton(filterOptions);
 
             //Injeção de dependencias do serviço para pessoa
             services.AddScoped<IRepositorio<Pessoa>, PessoaRepositorio>();
@@ -56,7 +58,11 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }
            
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "{controller=Values}/{id?}");
+            } );
         }
     }
 }

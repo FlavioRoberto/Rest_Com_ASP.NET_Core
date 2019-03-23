@@ -1,5 +1,4 @@
-﻿using Dominio.Model;
-using Dominio.ViewModel;
+﻿using Dominio.Core.ViewModel;
 
 namespace Negocio.Contratos
 {

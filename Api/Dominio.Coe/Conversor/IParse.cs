@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dominio.Conversor
+namespace Dominio.Core.Conversor
 {
     public interface IParse<Origem, Destino>
     {

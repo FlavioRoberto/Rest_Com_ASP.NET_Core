@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Dominio.Core.ViewModel;
 using Dominio.Model;
-using Dominio.ViewModel;
 
-namespace Dominio.Conversor
+namespace Dominio.Core.Conversor
 {
     public class LivroConversor : IParse<LivroViewModel, Livro>, IParse<Livro,LivroViewModel>
     {

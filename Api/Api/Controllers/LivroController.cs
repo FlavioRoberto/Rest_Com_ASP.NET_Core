@@ -1,5 +1,5 @@
 ﻿using Dominio.Model;
-using Dominio.ViewModel;
+using Dominio.Core.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Negocio.Contratos;
 using Negocio.Implementatacao;

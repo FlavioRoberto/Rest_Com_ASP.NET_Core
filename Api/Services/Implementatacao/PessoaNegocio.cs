@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dominio.Conversor;
+using Dominio.Core.Conversor;
+using Dominio.Core.ViewModel;
 using Dominio.Model;
-using Dominio.ViewModel;
 using Negocio.Contratos;
 using Repositorio;
 
