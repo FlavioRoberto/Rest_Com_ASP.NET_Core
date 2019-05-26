@@ -7,10 +7,11 @@ using Repositorio;
 using Repositorio.Implementatacao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Rewrite;
 using Dominio.Model;
-using Microsoft.Net.Http.Headers;
 using Tapioca.HATEOAS;
 using Dominio.Core.Hypermedia;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Api
 {
@@ -45,6 +46,15 @@ namespace Api
             filterOptions.ObjectContentResponseEnricherList.Add(new PessoaEnricher());
             services.AddSingleton(filterOptions);
 
+            services.AddSwaggerGen(c=>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "Exemplo REST API com ASP.NET Core 2.0",
+                    Version = "v1"
+                });
+            });
+
             //Injeção de dependencias do serviço para pessoa
             services.AddScoped<IRepositorio<Pessoa>, PessoaRepositorio>();
             services.AddScoped<IRepositorio<Livro>, LivroRepositorio>();
@@ -57,7 +67,16 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
-           
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c=> {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+            });
+
+            var option = new RewriteOptions();
+            option.AddRedirect("^$","swagger");
+            app.UseRewriter(option);
+
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: "DefaultApi",
