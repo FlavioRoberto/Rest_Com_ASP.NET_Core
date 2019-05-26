@@ -7,6 +7,8 @@ using Repositorio;
 using System;
 using System.Threading.Tasks;
 using Tapioca.HATEOAS;
+using System.Collections.Generic;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Api.Controllers
 {
@@ -24,6 +26,10 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [ProducesResponseType(typeof(List<PessoaViewModel>),200)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> ListarPorID(long id)
         {
@@ -36,6 +42,10 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(List<PessoaViewModel>), 200)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> ListarTodos()
         {
@@ -48,6 +58,9 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(List<PessoaViewModel>), 201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Criar([FromBody] PessoaViewModel pessoa)
         {
@@ -70,6 +83,10 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(List<PessoaViewModel>), 200)]
+        [ProducesResponseType(202)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Atualizar([FromBody] PessoaViewModel pessoa)
         {
@@ -86,6 +103,9 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
+        [ProducesResponseType(typeof(List<PessoaViewModel>), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public async Task<IActionResult> Remover([FromQuery] long id)
         {
