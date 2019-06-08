@@ -19,12 +19,12 @@ namespace Negocio.Implementatacao
             conversor = new LivroConversor();
         }
 
-        public LivroViewModel Atualizar(LivroViewModel livro)
+        public LivroViewModel Atualizar(LivroViewModel livroViewModel)
         {
             try
             {
-                var pessoa = conversor.Parse(livro);
-                var resultado = _repositorio.Atualizar(pessoa).Result;
+                var livro = conversor.Parse(livroViewModel);
+                var resultado = _repositorio.Atualizar(livro).Result;
                 return  conversor.Parse(resultado);
             }
             catch (Exception e)

@@ -9,6 +9,8 @@ namespace Data.Contexto
     {
         DbSet<Pessoa> Pessoa { get; set; }
         DbSet<Livro> Livro { get; set; }
+        DbSet<Usuario> Usuario { get; set; }
+
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
     }

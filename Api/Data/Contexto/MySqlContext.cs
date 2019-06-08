@@ -19,10 +19,13 @@ namespace Data.Contexto
         {
             modelBuilder.Entity<Pessoa>(b => new PessoaMapeamento(b).Map());
             modelBuilder.Entity<Livro>(b => new LivroMapeamento(b).Map());
+            modelBuilder.Entity<Usuario>(b => new UsuarioMapeamento(b).Map());
         }
 
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Livro> Livro { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
+
 
     }
 }

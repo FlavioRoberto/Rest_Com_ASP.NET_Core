@@ -1,4 +1,5 @@
-﻿namespace Dominio.Model
+﻿
+namespace Dominio.Model
 {
     public class Pessoa
     {

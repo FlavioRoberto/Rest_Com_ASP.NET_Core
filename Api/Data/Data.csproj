@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190526174336_Versao 02.00.cs" />
+    <Compile Remove="Migrations\20190526174336_Versao 02.00.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.3" />
   </ItemGroup>
